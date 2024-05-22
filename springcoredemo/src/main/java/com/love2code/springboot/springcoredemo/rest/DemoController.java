@@ -31,7 +31,7 @@ public class DemoController {
 
      */
 
-    public DemoController(@Qualifier("baseballCoach") Coach myCoach) {
+    public DemoController(@Qualifier("swimCoach") Coach myCoach) {
         this.myCoach = myCoach;
     }
 
