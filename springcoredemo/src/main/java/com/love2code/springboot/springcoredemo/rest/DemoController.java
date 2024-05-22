@@ -27,11 +27,19 @@ public class DemoController {
 
      if there is more than one implementation of the interface, you need to use @Qualifier to specify which implementation to use with the
 
+
+
      */
 
     public DemoController(@Qualifier("baseballCoach") Coach myCoach) {
         this.myCoach = myCoach;
     }
+
+    // you can also use @Primary to specify the default implementation
+    // right now the default implementation is BaseballCoach
+    /*public DemoController(Coach myCoach) {
+        this.myCoach = myCoach;
+    }*/
 
     // example of setter injection
     // this is recommended for optional dependencies
