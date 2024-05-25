@@ -2,11 +2,9 @@ package com.love2code.restcrud.rest;
 
 import com.love2code.restcrud.entity.Student;
 import jakarta.annotation.PostConstruct;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,9 +38,34 @@ public class StudentRestController {
         Student student = this.studentHashMap.get(studentId);
 
         if (student == null) {
-            return ResponseEntity.notFound().build();
+            throw new StudentNotFoundException("studentId not found: " + studentId);
         }
 
         return ResponseEntity.ok(student);
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<StudentErrorResponse> handleException(StudentNotFoundException exception) {
+        StudentErrorResponse response = new StudentErrorResponse();
+
+        response.setMessage(exception.getMessage());
+        response.setStatusCode(HttpStatus.NOT_FOUND.value());
+        response.setTimeStamp(System.currentTimeMillis());
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    // catch all exception handler
+
+
+    @ExceptionHandler
+    private ResponseEntity<StudentErrorResponse> handleException(Exception exception) {
+        StudentErrorResponse response = new StudentErrorResponse();
+
+        response.setMessage(exception.getMessage());
+        response.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        response.setTimeStamp(System.currentTimeMillis());
+
+        return ResponseEntity.badRequest().body(response);
     }
 }
