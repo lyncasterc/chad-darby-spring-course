@@ -8,6 +8,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employees")
@@ -27,14 +28,14 @@ public class EmployeeRestController {
 
     @GetMapping("/{requestId}")
     private ResponseEntity<Employee> getEmployeeById(@PathVariable int requestId) {
-        Employee employee = employeeService.findById(requestId);
+        Optional<Employee> employee = employeeService.findById(requestId);
 
-        if (employee == null) {
+        if (employee.isEmpty()) {
 //            throw new RuntimeException("Employee id not found");
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok(employee);
+        return ResponseEntity.ok(employee.get());
     }
 
     @PostMapping
@@ -55,9 +56,9 @@ public class EmployeeRestController {
 
     @PutMapping("/{requestId}")
     private ResponseEntity<Employee> updateEmployee(@RequestBody Employee updatedEmployee, @PathVariable int requestId) {
-        Employee existingEmployee = employeeService.findById(requestId);
+        Optional<Employee> existingEmployee = employeeService.findById(requestId);
 
-        if (existingEmployee == null) {
+        if (existingEmployee.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
@@ -69,9 +70,9 @@ public class EmployeeRestController {
 
     @DeleteMapping("/{requestId}")
     private ResponseEntity<Void> deleteEmployeeById(@PathVariable int requestId) {
-        Employee employee = employeeService.findById(requestId);
+        Optional<Employee> employee = employeeService.findById(requestId);
 
-        if (employee == null) {
+        if (employee.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 

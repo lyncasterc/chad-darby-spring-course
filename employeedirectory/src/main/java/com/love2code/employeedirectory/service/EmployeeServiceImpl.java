@@ -1,39 +1,40 @@
 package com.love2code.employeedirectory.service;
 
-import com.love2code.employeedirectory.dao.EmployeeDAO;
+import com.love2code.employeedirectory.dao.EmployeeRepository;
 import com.love2code.employeedirectory.entity.Employee;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private final EmployeeDAO employeeDAO;
+//    private final EmployeeDAO employeeDAO;
 
-    public EmployeeServiceImpl(EmployeeDAO employeeDAO) {
-        this.employeeDAO = employeeDAO;
+    private final EmployeeRepository employeeRepository;
+
+    public EmployeeServiceImpl(EmployeeRepository
+                                       employeeRepository) {
+        this.employeeRepository = employeeRepository;
     }
 
     @Override
     public List<Employee> findAll() {
-        return employeeDAO.findAll();
+        return employeeRepository.findAll();
     }
 
     @Override
-    public Employee findById(int id) {
-        return employeeDAO.findById(id);
+    public Optional<Employee> findById(int id) {
+        return employeeRepository.findById(id);
     }
 
     @Override
-    @Transactional
     public void deleteById(int id) {
-        employeeDAO.deleteById(id);
+        employeeRepository.deleteById(id);
     }
 
     @Override
-    @Transactional
     public Employee save(Employee employee) {
-        return employeeDAO.save(employee);
+        return employeeRepository.save(employee);
     }
 }
