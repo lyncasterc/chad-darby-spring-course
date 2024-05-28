@@ -36,9 +36,9 @@ public class CruddemoApplication {
 
             // example of creating multiple students and retrieving one by last name
 
-           /* createMultipleStudents(studentDAO);
+            createMultipleStudents(studentDAO);
             List<Student> students = studentDAO.findByLastName("C");
-            students.forEach(student -> System.out.println(student));*/
+            students.forEach(student -> System.out.println(student));
 
             // example of updating a student's first name
 
@@ -59,7 +59,7 @@ public class CruddemoApplication {
 
             // example of deleting student by lastname
 
-            createMultipleStudents(studentDAO);
+           /* createMultipleStudents(studentDAO);
 
             studentDAO.deleteByLastName("C");
 
@@ -67,7 +67,7 @@ public class CruddemoApplication {
 
             students.forEach(student -> System.out.println(student));
 
-            studentDAO.deleteAll();
+            studentDAO.deleteAll();*/
         };
     }
 
