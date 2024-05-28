@@ -2,6 +2,7 @@ package com.love2code.employeedirectory.service;
 
 import com.love2code.employeedirectory.dao.EmployeeDAO;
 import com.love2code.employeedirectory.entity.Employee;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,5 +23,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee findById(int id) {
         return employeeDAO.findById(id);
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(int id) {
+        employeeDAO.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public Employee save(Employee employee) {
+        return employeeDAO.save(employee);
     }
 }
