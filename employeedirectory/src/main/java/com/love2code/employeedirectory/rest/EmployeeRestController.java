@@ -1,3 +1,4 @@
+/*
 package com.love2code.employeedirectory.rest;
 
 import com.love2code.employeedirectory.entity.Employee;
@@ -81,3 +82,4 @@ public class EmployeeRestController {
         return ResponseEntity.noContent().build();
     }
 }
+*/
