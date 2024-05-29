@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Form</title>
+
+    <style>
+        fieldset {
+            width: 150px;
+
+        }
+    </style>
+</head>
+<body>
+    <h3>Student Registration Form</h3>
+
+<form th:action="@{/studentForm}" th:object="${student}"  method="post">
+    <label for="firstName">First Name</label>
+    <input type="text" name="firstName" id="firstName" th:field="*{firstName}">
+
+    <br><br>
+    <label for="lastName">Last Name</label>
+    <input type="text" name="lastName" id="lastName" th:field="*{lastName}">
+
+    <br><br>
+
+    <label for="country">Select Country</label>
+    <select th:field="*{country}" id="country" name="country">
+    <option th:each="country : ${countries}"th:value="${country}" th:text="${country}" />
+    </select>
+
+    <br><br>
+
+    <fieldset>
+        <legend>Favorite Programming Language:</legend>
+        <div th:each="language: ${languages}">
+            <input
+                type="radio"
+                th:field="*{favoriteLanguage}"
+                th:value="${language}"
+                th:id="${language}"
+                th:name="${language}"
+            />
+            <label th:for="${language}" th:text="${language}"/>
+        </div>
+    </fieldset>
+
+    <br><br>
+
+    <fieldset>
+        <legend>Favorite OSs:</legend>
+        <div th:each="system: ${favoriteSystems}">
+            <input
+                type="checkbox"
+                th:field="*{favoriteSystems}"
+                th:value="${system}"
+                th:id="${system}"
+                th:name="${system}"
+            />
+            <label th:for="${system}" th:text="${system}"/>
+        </div>
+    </fieldset>
+
+    <br><br>
+
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>
