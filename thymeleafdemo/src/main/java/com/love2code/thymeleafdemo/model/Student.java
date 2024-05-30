@@ -1,11 +1,26 @@
 package com.love2code.thymeleafdemo.model;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.util.List;
 
 public class Student {
+
+    @NotNull(message = "First name is required.")
+    @Size(min = 1, message = "First name must be at least one character.")
     private String firstName;
+
+    @NotNull(message = "Last name is required")
+    @Size(min = 1, message = "Last name must be at least one character.")
     private String lastName;
+
+    @NotNull(message = "Country is required")
     private String country;
+
+    private List<String> favoriteSystems;
+
+    private String favoriteLanguage;
 
     public List<String> getFavoriteSystems() {
         return favoriteSystems;
@@ -15,7 +30,6 @@ public class Student {
         this.favoriteSystems = favoriteSystems;
     }
 
-    private List<String> favoriteSystems;
 
     public String getFavoriteLanguage() {
         return favoriteLanguage;
@@ -25,7 +39,6 @@ public class Student {
         this.favoriteLanguage = favoriteLanguage;
     }
 
-    private String favoriteLanguage;
 
     public Student() {
     }

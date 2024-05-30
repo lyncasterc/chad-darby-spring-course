@@ -1,9 +1,11 @@
 package com.love2code.thymeleafdemo.controller;
 
 import com.love2code.thymeleafdemo.model.Student;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,16 +28,26 @@ public class StudentController {
         Student student = new Student();
 
         model.addAttribute("student", student);
-        model.addAttribute("countries", countries);
-        model.addAttribute("languages", languages);
-        model.addAttribute("favoriteSystems", favoriteSystems);
+        this.addCommonAttributes(model);
 
         return "student-form";
     }
 
     @PostMapping("/studentForm")
-    private String processStudentForm(@ModelAttribute("student") Student student) {
+    private String processStudentForm(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            this.addCommonAttributes(model);
+
+            return "student-form";
+        }
 
         return "student-confirmation";
+    }
+
+    private void addCommonAttributes(Model model) {
+        model.addAttribute("countries", countries);
+        model.addAttribute("languages", languages);
+        model.addAttribute("favoriteSystems", favoriteSystems);
     }
 }
