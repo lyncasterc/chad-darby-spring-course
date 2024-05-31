@@ -1,5 +1,6 @@
 package com.love2code.thymeleafdemo.model;
 
+import com.love2code.thymeleafdemo.validation.CourseCode;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -21,6 +22,19 @@ public class Student {
     private List<String> favoriteSystems;
 
     private String favoriteLanguage;
+
+    @NotNull(message = "Computer science course is required")
+    @CourseCode(value = "CSC", message = "Must start with CSC")
+    private String CSCourse;
+
+    public String getCSCourse() {
+        return CSCourse;
+    }
+
+    public void setCSCourse(String CSCourse) {
+        this.CSCourse = CSCourse;
+    }
+
 
     public List<String> getFavoriteSystems() {
         return favoriteSystems;
